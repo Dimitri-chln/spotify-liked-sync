@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+		"module": "Node16",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"target": "es2021"
+	},
+	"include": ["src/**/*", "src/**/*.json"],
+	"exclude": ["node_modules/**/*"]
+}

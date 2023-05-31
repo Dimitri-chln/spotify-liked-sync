@@ -1,0 +1,29 @@
+{
+	"name": "spotify-liked-sync",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "dist/index.js",
+	"scripts": {
+		"start": "node .",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@types/express": "^4.17.17",
+		"@types/spotify-web-api-node": "^5.0.7",
+		"axios": "^1.4.0",
+		"dotenv": "^16.1.0",
+		"express": "^4.18.2",
+		"open": "^9.1.0",
+		"prettier": "^2.8.8",
+		"spotify-web-api-node": "^5.0.2",
+		"typescript": "^5.0.4"
+	},
+	"engines": {
+		"node": "16.x"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Dimitri-chln/spotify-liked-sync.git"
+	},
+	"license": "MIT"
+}
