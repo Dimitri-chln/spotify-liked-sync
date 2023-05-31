@@ -11,4 +11,5 @@ dist/
 .env
 
 # Logs
+debug.log
 error.log

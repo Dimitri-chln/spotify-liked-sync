@@ -1,1 +1,0 @@
-npm start 2> error.log
