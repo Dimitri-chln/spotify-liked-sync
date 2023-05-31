@@ -10,5 +10,5 @@ export default async function updateSyncedPlaylist() {
 	await clearSyncedPlaylist();
 	console.log(" - Adding the saved tracks back...");
 	await fillSyncedPlaylist(savedTracks.map((savedTrack) => savedTrack.track.uri));
-	console.log("Synced playlist successfully updated");
+	console.log(" - Synced playlist successfully updated");
 }
