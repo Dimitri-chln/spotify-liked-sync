@@ -6,7 +6,7 @@ async function main() {
 
 	// Update the synced playlist every hour
 	Util.updateSyncedPlaylist();
-	setInterval(Util.updateSyncedPlaylist, 3_600_000);
+	setInterval(Util.updateSyncedPlaylist, Util.config.sync_interval_in_ms);
 }
 
 // Main function
