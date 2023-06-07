@@ -1,1 +1,1 @@
-WScript.CreateObject("WScript.Shell").Run("npm start > debug.log 2>> error.log "), 0
+WScript.CreateObject("WScript.Shell").Run("npm start > debug.log 2> error.log "), 0
