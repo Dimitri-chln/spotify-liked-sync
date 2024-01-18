@@ -10,7 +10,11 @@ dist/
 # Environment variables
 .env
 
-# Scripts and logs
-start.*
+# Scripts
+start.sh
+start.bat
+start.vbs
+
+# Logs
 out.log
 error.log
