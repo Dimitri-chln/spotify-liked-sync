@@ -37,13 +37,7 @@ export default function authorize(): Promise<Credentials> {
 		// Open authorization window in browser
 		const state = generateRandomString(32);
 		const url = Util.spotify.createAuthorizeURL(
-			[
-				"user-library-read",
-				"playlist-read-public",
-				"playlist-modify-public",
-				"playlist-read-private",
-				"playlist-modify-private",
-			],
+			["user-library-read", "playlist-modify-public", "playlist-read-private", "playlist-modify-private"],
 			state,
 		);
 
