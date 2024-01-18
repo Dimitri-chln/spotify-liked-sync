@@ -10,6 +10,7 @@ dist/
 # Environment variables
 .env
 
-# Logs
+# Scripts and logs
+start.*
 debug.log
 error.log
