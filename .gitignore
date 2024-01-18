@@ -12,5 +12,5 @@ dist/
 
 # Scripts and logs
 start.*
-debug.log
+out.log
 error.log
