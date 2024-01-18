@@ -41,7 +41,7 @@ export default function authorize(): Promise<Credentials> {
 			state,
 		);
 
-		console.log(`Login to Spotify to ${url}`);
+		console.log(`- Login to Spotify to ${url}`);
 		open(url).catch(console.error);
 	});
 }
