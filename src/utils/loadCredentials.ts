@@ -10,7 +10,7 @@ import refreshAccessToken from "./refreshAccessToken.js";
  */
 export default async function loadCredentials() {
 	console.log("Loading possibly already exisiting credentials...");
-	const credentials: Credentials = JSON.parse(Fs.readFileSync("./dist/credentials.json").toString());
+	const credentials: Credentials = JSON.parse(Fs.readFileSync("./credentials.json").toString());
 
 	// The time before the current access token expires in ms
 	let expiresIn: number;
