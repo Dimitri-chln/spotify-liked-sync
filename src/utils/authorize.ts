@@ -10,7 +10,7 @@ export default function authorize(): Promise<Credentials> {
 		const app = express();
 
 		// Start local web server
-		const server = app.listen(8000);
+		const server = app.listen(8080);
 
 		app.get("/", async (req, res) => {
 			res.send("Hello");
