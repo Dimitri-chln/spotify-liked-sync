@@ -1,4 +1,5 @@
-import config from "./config.json";
+import Fs from "node:fs";
+import Path from "node:path";
 
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -12,7 +13,9 @@ export default class Util {
 		redirectUri: process.env.SPOTIFY_REDIRECT_URI,
 	});
 
-	static readonly config: Config = config;
+	static readonly config: Config = JSON.parse(
+		Fs.readFileSync(Path.join(__dirname, "config.json"), { encoding: "utf8" }),
+	);
 
 	static loadCredentials = loadCredentials;
 	static updateSyncedPlaylist = updateSyncedPlaylist;

@@ -1,7 +1,7 @@
 import Util from "../Util.js";
 
 import express from "express";
-import open from "open";
+import("open");
 
 import generateRandomString from "./generateRandomString.js";
 
@@ -42,6 +42,10 @@ export default function authorize(): Promise<Credentials> {
 		);
 
 		console.log(`- Login to Spotify to ${url}`);
-		open(url).catch(console.error);
+		try {
+			open(url);
+		} catch (err) {
+			console.error(err);
+		}
 	});
 }
