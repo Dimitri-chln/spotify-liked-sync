@@ -1,6 +1,5 @@
 interface Config {
 	synced_playlist_id: string;
-	sync_interval_in_ms: number;
 }
 
 interface Credentials {

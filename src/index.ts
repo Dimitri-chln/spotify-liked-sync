@@ -1,12 +1,12 @@
+import Dotenv from "dotenv/config";
+
 import Util from "./Util.js";
 
 async function main() {
 	// Load user access and refresh tokens
 	await Util.loadCredentials();
-
-	// Update the synced playlist every hour
+	// Update the synced playlist
 	Util.updateSyncedPlaylist();
-	setInterval(Util.updateSyncedPlaylist, Util.config.sync_interval_in_ms);
 }
 
 // Main function

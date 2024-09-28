@@ -12,8 +12,6 @@ dist/
 
 # Scripts
 start.sh
-start.bat
-start.vbs
 
 # Logs
 out.log
