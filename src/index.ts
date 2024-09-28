@@ -1,4 +1,4 @@
-import Dotenv from "dotenv/config";
+import "dotenv/config";
 
 import Util from "./Util.js";
 

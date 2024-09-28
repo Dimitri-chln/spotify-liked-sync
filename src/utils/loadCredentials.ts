@@ -1,18 +1,17 @@
 import Util from "../Util.js";
 
+import Fs from "node:fs";
 import FsAsync from "node:fs/promises";
 
 import authorize from "./authorize.js";
 
 export default async function loadCredentials() {
 	console.log("Loading possibly already exisiting credentials...");
-	const credentials: Credentials = JSON.parse(await FsAsync.readFile("credentials.json", { encoding: "utf8" }));
-
-	// The time before the current access token expires in ms
-	let expiresIn: number;
 
 	// If a token has been generated already
-	if (credentials.created_at) {
+	if (Fs.existsSync("credentials.json")) {
+		const credentials: Credentials = JSON.parse(await FsAsync.readFile("credentials.json", { encoding: "utf8" }));
+
 		console.log(" - An access token has already been generated.");
 		Util.spotify.setRefreshToken(credentials.data.refresh_token);
 
@@ -28,14 +27,13 @@ export default async function loadCredentials() {
 
 			Util.spotify.setAccessToken(spotifyResponse.body.access_token);
 			console.log(" - Access token successfully refreshed and saved for future API calls.");
-			expiresIn = spotifyResponse.body.expires_in * 1000;
 		}
 	} else {
 		// Otherwise generate new token
 		console.log(" - No access token has been found, generating a new one...");
 		const newCredentials = await authorize();
 		// Save the access token
-		await FsAsync.writeFile("credentials.json", JSON.stringify(credentials, null, 2));
+		await FsAsync.writeFile("credentials.json", JSON.stringify(newCredentials, null, 2));
 
 		Util.spotify.setAccessToken(newCredentials.data.access_token);
 		Util.spotify.setRefreshToken(newCredentials.data.refresh_token);
