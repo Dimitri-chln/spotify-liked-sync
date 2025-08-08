@@ -1,0 +1,17 @@
+[package]
+name = "spotify-liked-sync"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.42", features = ["derive"] }
+dotenv = "0.15.0"
+http-body-util = "0.1.3"
+hyper = { version = "1.6.0", features = ["http1", "server"] }
+hyper-util = { version = "0.1.16", features = ["tokio"] }
+indicatif = { version = "0.18.0", features = ["tokio"] }
+pin-project = "1.1.10"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.142"
+spotify-rs = "0.4.1"
+tokio = { version = "1.47.1", features = ["macros", "fs"] }
