@@ -41,7 +41,7 @@ pub async fn sync() -> Result<()> {
     let compare_result = Compare::new(&saved_tracks, &sync_tracks);
 
     // Remove tracks from the sync playlist if necessary
-    if compare_result.to_remove().len() > 0 {
+    if !compare_result.to_remove().is_empty() {
         self::remove_tracks(
             config.sync_playlist_id(),
             compare_result.to_remove(),
@@ -55,7 +55,7 @@ pub async fn sync() -> Result<()> {
     }
 
     // Add tracks to the sync playlist if necessary
-    if compare_result.to_add().len() > 0 {
+    if !compare_result.to_add().is_empty() {
         self::add_tracks(config.sync_playlist_id(), compare_result.to_add(), &spotify)
             .progress(format!(
                 "Adding {} tracks to the sync playlist",
@@ -76,7 +76,7 @@ async fn load_saved_tracks(spotify: &Spotify) -> Result<Vec<SavedTrack>> {
     let saved_tracks = saved_tracks.get_all(spotify).await?;
     let saved_tracks = saved_tracks
         .into_iter()
-        .filter_map(|track| track)
+        .flatten()
         .map(SavedTrack)
         .collect::<Vec<_>>();
 
@@ -88,7 +88,7 @@ async fn load_sync_tracks(playlist_id: &str, spotify: &Spotify) -> Result<Vec<Pl
     let sync_tracks = sync_tracks.get_all(spotify).await?;
     let sync_tracks = sync_tracks
         .into_iter()
-        .filter_map(|track| track)
+        .flatten()
         .map(PlaylistItem)
         .collect::<Vec<_>>();
 
