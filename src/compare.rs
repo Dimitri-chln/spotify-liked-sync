@@ -4,8 +4,11 @@ pub struct Compare<'s, 'd, T, U> {
 }
 
 impl<'s, 'd, T: PartialEq<U>, U> Compare<'s, 'd, T, U> {
-    pub fn new(src: &'s [T], dest: &'d [U]) -> Self {
-        self::compare(src, dest)
+    pub fn new(
+        src: impl IntoIterator<Item = &'s T>,
+        dest: impl IntoIterator<Item = &'d U>,
+    ) -> Self {
+        self::compare(src.into_iter(), dest.into_iter())
     }
 
     pub fn to_remove(&self) -> &[&'d U] {
@@ -17,9 +20,12 @@ impl<'s, 'd, T: PartialEq<U>, U> Compare<'s, 'd, T, U> {
     }
 }
 
-pub fn compare<'s, 'd, T: PartialEq<U>, U>(src: &'s [T], dest: &'d [U]) -> Compare<'s, 'd, T, U> {
-    let mut src = src.iter();
-    let mut dest = dest.iter();
+pub fn compare<'s, 'd, T: PartialEq<U>, U>(
+    src: impl IntoIterator<Item = &'s T>,
+    dest: impl IntoIterator<Item = &'d U>,
+) -> Compare<'s, 'd, T, U> {
+    let mut src = src.into_iter();
+    let mut dest = dest.into_iter();
 
     let mut to_remove = vec![];
     let mut to_add = vec![];

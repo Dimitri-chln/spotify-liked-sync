@@ -38,7 +38,7 @@ pub async fn sync() -> Result<()> {
         .await?;
 
     // Compare both results
-    let compare_result = Compare::new(&saved_tracks, &sync_tracks);
+    let compare_result = Compare::new(saved_tracks.iter().rev(), sync_tracks.iter().rev());
 
     // Remove tracks from the sync playlist if necessary
     if !compare_result.to_remove().is_empty() {
@@ -100,10 +100,13 @@ async fn remove_tracks(
     tracks: &[&PlaylistItem],
     spotify: &Spotify,
 ) -> Result<()> {
-    let item_uris = tracks.iter().map(|track| track.id()).collect::<Vec<_>>();
+    for items in tracks.chunks(100) {
+        let item_uris: Vec<_> = items.iter().rev().map(|track| track.uri()).collect();
+        let item_names: Vec<_> = items.iter().rev().map(|track| track.name()).collect();
 
-    for item_uris in item_uris.chunks(100) {
-        spotify_rs::remove_playlist_items(playlist_id, item_uris)
+        println!(" - Removing: {}", item_names.join("\n - Removing: "));
+
+        spotify_rs::remove_playlist_items(playlist_id, &item_uris)
             .send(spotify)
             .await?;
     }
@@ -112,10 +115,14 @@ async fn remove_tracks(
 }
 
 async fn add_tracks(playlist_id: &str, tracks: &[&SavedTrack], spotify: &Spotify) -> Result<()> {
-    let item_uris = tracks.iter().map(|track| track.id()).collect::<Vec<_>>();
+    for items in tracks.chunks(100) {
+        let item_uris: Vec<_> = items.iter().rev().map(|track| track.uri()).collect();
+        let item_names: Vec<_> = items.iter().rev().map(|track| track.name()).collect();
 
-    for item_uris in item_uris.chunks(100) {
-        spotify_rs::add_items_to_playlist(playlist_id, item_uris)
+        println!(" - Adding: {}", item_names.join("\n - Adding: "));
+
+        spotify_rs::add_items_to_playlist(playlist_id, &item_uris)
+            .position(0)
             .send(spotify)
             .await?;
     }

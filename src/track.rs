@@ -7,16 +7,27 @@ pub struct SavedTrack(pub track::SavedTrack);
 pub struct PlaylistItem(pub playlist::PlaylistItem);
 
 impl SavedTrack {
-    pub fn id(&self) -> &str {
-        &self.track.id
+    pub fn uri(&self) -> &str {
+        &self.track.uri
+    }
+
+    pub fn name(&self) -> &str {
+        &self.track.name
     }
 }
 
 impl PlaylistItem {
-    pub fn id(&self) -> &str {
+    pub fn uri(&self) -> &str {
         match self.track {
-            PlayableItem::Track(ref track) => &track.id,
-            PlayableItem::Episode(ref episode) => &episode.id,
+            PlayableItem::Track(ref track) => &track.uri,
+            PlayableItem::Episode(ref episode) => &episode.uri,
+        }
+    }
+
+    pub fn name(&self) -> &str {
+        match self.track {
+            PlayableItem::Track(ref track) => &track.name,
+            PlayableItem::Episode(ref episode) => &episode.name,
         }
     }
 }
@@ -39,6 +50,6 @@ impl Deref for PlaylistItem {
 
 impl PartialEq<PlaylistItem> for SavedTrack {
     fn eq(&self, other: &PlaylistItem) -> bool {
-        self.id() == other.id()
+        self.uri() == other.uri()
     }
 }
