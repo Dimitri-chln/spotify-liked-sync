@@ -20,7 +20,7 @@ impl<'s, 'd, T: PartialEq<U>, U> Compare<'s, 'd, T, U> {
     }
 }
 
-pub fn compare<'s, 'd, T: PartialEq<U>, U>(
+fn compare<'s, 'd, T: PartialEq<U>, U>(
     src: impl IntoIterator<Item = &'s T>,
     dest: impl IntoIterator<Item = &'d U>,
 ) -> Compare<'s, 'd, T, U> {
